@@ -1,0 +1,55 @@
+version: "3.5"
+networks:
+  api_net:
+    name: api_net
+services:
+  database:
+    image: "postgres" # use latest official postgres version
+    ports: 
+      - "5432:5432"
+    networks:
+      - api_net
+    environment:
+      - POSTGRES_DB=sample
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5432
+    volumes:
+      - ./internal/data/migration:/docker-entrypoint-initdb.d
+      - ./.volumes:/var/lib/postgresql/data # persist data even if container shuts down
+    # Main application
+  api:
+    build:
+      context: .
+    volumes:
+      - ./:/go/src/api/
+    command: ["./wait-for-it.sh", "database:5432", "--", "rerun", "-a", "api"]
+    networks:
+      - api_net
+    depends_on:
+      - database
+    ports:
+      - "3000:3000"
+    environment:
+      - POSTGRES_HOST=${POSTGRES_DB_HOST}
+      - POSTGRES_PORT=${POSTGRES_DB_PORT}
+      - POSTGRES_DB=${POSTGRES_DB_NAME}
+      - POSTGRES_USER=${POSTGRES_DB_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_DB_PASSWORD}
+  pgweb:
+    container_name: pgweb
+    restart: always
+    image: sosedoff/pgweb
+    ports: 
+        - "8081:8081"
+    networks:
+      - api_net
+    links: 
+        - database:database
+    environment:
+        - DATABASE_URL=postgres://user:pass@database:5432/sample?sslmode=disable
+    depends_on:
+        - database
+volumes:
+  database-data: # named volumes can be managed easier using docker-compose
