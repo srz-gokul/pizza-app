@@ -100,7 +100,7 @@ Sample response body
 }
 ```
 
-### Update a new order [PUT]
+### Update an order [PUT]
 
 > http://localhost:3000/api/order
 
