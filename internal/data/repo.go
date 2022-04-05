@@ -10,6 +10,10 @@ type Repo interface {
 	AddOrderDetails(order *OrderData) error
 	GetOrderDetails(id int) (*OrderData, error)
 	UpdateOrderDetails(order *OrderData) error
+	DeleteOrderDetails(orderID int) error
+	NewPizzaDetails(pizza *NewPizza) error
+	ShowPizzaDetails(pizza *NewPizza) error
+	ListAllOrdersDetails(pizza *NewPizza) error
 }
 
 // repo represents db actions object
@@ -21,3 +25,5 @@ type repo struct {
 func New(db *sql.DB) *repo {
 	return &repo{db}
 }
+
+//data execution protection

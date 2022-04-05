@@ -21,3 +21,14 @@ type OrderData struct {
 	EndTime      *time.Time `json:"end_time,omitempty"`
 	IsActive     bool       `json:"is_active,omitempty"`
 }
+
+// newPizza holds the pizza related details.
+type NewPizza struct {
+	Pizza_id      int
+	Pizza_name    string
+	Pizza_type    string
+	Pizza_size    string
+	user_id       int
+	starting_date *time.Time
+	ending_date   *time.Time
+}

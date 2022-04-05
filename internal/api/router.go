@@ -18,7 +18,12 @@ func (s *App) InitRouter() chi.Router {
 		r.Get("/status", s.statusHandler)
 		r.Post("/buy_pizza", s.orderPizzaHandler)
 		r.Put("/order", s.updateOrderHandler)
+		r.Delete("order/{order_id}", s.deleteStatusHandler)
 		r.Get("/order-status/{user_id}", s.orderStatusHandler)
+		r.Put("/new_pizza", s.newPizzaHandler)
+		r.Get("show_details", s.showPizzaDetailsHandler)
+		r.Get("/list_orders", s.ListAllOrdersHandler)
+
 	})
 
 	return r

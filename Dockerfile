@@ -22,3 +22,4 @@ COPY internal internal
 RUN ["go", "install", "."]
 
 CMD [ "pizza-app", "api" ]
+

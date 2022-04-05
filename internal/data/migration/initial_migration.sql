@@ -34,4 +34,16 @@ CREATE TABLE IF NOT EXISTS pizza_order
      is_active     BOOLEAN
   );
 
+
+--  new_pizza table holds the order details
+CREATE TABLE IF NOT EXISTS pizza_details
+(
+     id              SERIAL PRIMARY KEY,
+     pizza_id        INT NOT NULL REFERENCES pizza(id),
+     pizza_size      PIZZA_SIZE NOT NULL,
+     user_id         INT NOT NULL REFERENCES pizza_order(user_id),
+     starting_date   TIMESTAMP NOT NULL,
+	   ending_date     TIMESTAMP
+);
+
 END;
