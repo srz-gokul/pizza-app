@@ -140,7 +140,6 @@ Sample response body
     }
 }
 ```
-<<<<<<< HEAD
 
 # To do
 - Create API to delete the order
@@ -148,5 +147,3 @@ Sample response body
 - Create API to add new pizza types
 - Create API to list all pizza types
 - create api to list all orders for the last x days
-=======
->>>>>>> c36e4be41957fb817f20fb5a4c3f319e83ab3d92
